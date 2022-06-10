@@ -8,7 +8,16 @@ FROM caddy:2.5.1
 
 COPY --from=builder /usr/bin/caddy /usr/bin/caddy
 
-VOLUME [ "/uploads" "/conf" "/data" "/html" ]
+ENV CADDY_HOME /data/caddy
+WORKDIR $CADDY_HOME
+
+COPY conf $CADDY_HOME/conf
+COPY data $CADDY_HOME/data
+COPY html  $CADDY_HOME/html
+
+RUN mkdir $CADDY_HOME/dav
+
+VOLUME [ "$CADDY_HOME/dav" "$CADDY_HOME/conf" "$CADDY_HOME/data" "$CADDY_HOME/html" ]
 
 # --------------------
 # Locale
@@ -19,4 +28,4 @@ RUN apk add tzdata
 ENV TZ=Asia/Tokyo
 RUN date
 
-CMD ["caddy", "run", "--config", "/conf/Caddyfile", "--adapter", "caddyfile"]
+CMD ["caddy", "run", "--config", "./conf/Caddyfile"]

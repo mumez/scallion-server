@@ -19,7 +19,7 @@
 	}
 }
 
-localhost:2013 {
+*:2013 {
 	root data
 	encode zstd gzip
 	@dav {
@@ -32,7 +32,7 @@ localhost:2013 {
 	}
 }
 
-localhost:2014 {
+*:2014 {
 	encode zstd gzip
 	root data
 	@dav {
@@ -46,7 +46,7 @@ localhost:2014 {
 	}
 }
 
-localhost:2015 {
+*:2015 {
 	root data
 	encode zstd gzip
 	templates
@@ -55,7 +55,7 @@ localhost:2015 {
 	file_server browse
 }
 
-localhost:2016 {
+*:2016 {
 	encode zstd gzip
 	root data
 	@api {
