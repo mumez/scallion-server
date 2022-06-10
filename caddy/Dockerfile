@@ -28,4 +28,4 @@ RUN apk add tzdata
 ENV TZ=Asia/Tokyo
 RUN date
 
-CMD ["caddy", "run", "--config", "./conf/Caddyfile"]
+CMD ["caddy", "run", "--config", "./conf/Caddyfile", "--watch"]
