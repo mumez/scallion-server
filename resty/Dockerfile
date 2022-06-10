@@ -1,6 +1,3 @@
-# Dockerfile - ALLSTOCKER
-# ref. https://github.com/sorabito/allstocker-resty-auth
-
 FROM openresty/openresty:xenial
 
 # Add additional binaries into PATH for convenience
