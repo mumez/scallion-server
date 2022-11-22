@@ -1,10 +1,10 @@
-FROM caddy:2.5.1-builder-alpine AS builder
+FROM caddy:2.6-builder-alpine AS builder
 
 RUN xcaddy build \
     --with github.com/mholt/caddy-webdav \
     --with github.com/ggicci/caddy-jwt@v0.7.1
 
-FROM caddy:2.5.1
+FROM caddy:2.6
 
 COPY --from=builder /usr/bin/caddy /usr/bin/caddy
 
@@ -13,7 +13,7 @@ WORKDIR $CADDY_HOME
 
 COPY conf $CADDY_HOME/conf
 COPY data $CADDY_HOME/data
-COPY html  $CADDY_HOME/html
+COPY html $CADDY_HOME/html
 
 RUN mkdir $CADDY_HOME/dav
 
