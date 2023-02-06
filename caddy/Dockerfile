@@ -12,12 +12,10 @@ ENV CADDY_HOME /data/caddy
 WORKDIR $CADDY_HOME
 
 COPY conf $CADDY_HOME/conf
-COPY data $CADDY_HOME/data
+COPY uploads $CADDY_HOME/uploads
 COPY html $CADDY_HOME/html
 
-RUN mkdir $CADDY_HOME/dav
-
-VOLUME [ "$CADDY_HOME/dav" "$CADDY_HOME/conf" "$CADDY_HOME/data" "$CADDY_HOME/html" ]
+VOLUME [ "$CADDY_HOME/conf" "$CADDY_HOME/uploads" "$CADDY_HOME/html" ]
 
 # --------------------
 # Locale

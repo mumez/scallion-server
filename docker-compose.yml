@@ -3,19 +3,14 @@ services:
   caddy:
     build: caddy
     ports:
-      - "2013:2013"
-      - "2014:2014"
-      - "2015:2015"
       - "2016:2016"
       - "80:80"
       - "443:443"
     volumes:
       - ./caddy/conf/Caddyfile:/data/caddy/conf/Caddyfile
-      - ./caddy/data:/data/caddy/data
+      - ./caddy/uploads:/data/caddy/uploads
 
   resty:
     build: resty
     ports:
       - "7070:8080"
-
-

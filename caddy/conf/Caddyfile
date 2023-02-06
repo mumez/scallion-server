@@ -30,6 +30,20 @@
 	respond @options 204
 }
 
+(to_dav) {
+	@dav {
+		path /dav/*
+	}
+	route @dav {
+		root uploads
+		import cors "*"
+		import verify_jwt
+		webdav {
+			prefix /dav
+		}
+	}
+}
+
 (to_api) {
 	@api {
 		# header API true
@@ -46,55 +60,8 @@
 	}
 }
 
-:2013 {
-	root data
-	encode zstd gzip
-	@dav {
-		path /dav/*
-	}
-	rewrite /dav /dav/
-	route @dav {
-		uri strip_prefix /dav
-		file_server browse
-	}
-}
-
-:2014 {
-	encode zstd gzip
-	root data
-	@dav {
-		path /dav/*
-	}
-	route @dav {
-		import cors "*"
-		import verify_jwt
-		webdav {
-			prefix /dav
-		}
-	}
-}
-
-:2015 {
-	root data
-	encode zstd gzip
-	templates
-
-	import verify_jwt
-	file_server browse
-}
-
 :2016 {
-	encode zstd gzip
-	root data
-	@dav {
-		path /dav/*
-	}
-	route @dav {
-		import verify_jwt
-		webdav {
-			prefix /dav
-		}
-	}
+	import to_dav
 	import to_api
 	reverse_proxy localhost:8080
 }
