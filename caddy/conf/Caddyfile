@@ -54,7 +54,7 @@
 		import verify_jwt
 		uri strip_prefix /api
 		reverse_proxy {
-			to 192.168.80.133:9088 192.168.80.133:9089
+			to 192.168.80.128:9088 192.168.80.128:9089
 			lb_policy ip_hash
 		}
 	}
