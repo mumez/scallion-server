@@ -15,7 +15,7 @@ COPY conf $CADDY_HOME/conf
 COPY uploads $CADDY_HOME/uploads
 COPY html $CADDY_HOME/html
 
-VOLUME [ "$CADDY_HOME/conf" "$CADDY_HOME/uploads" "$CADDY_HOME/html" ]
+VOLUME [ "$CADDY_HOME/conf", "$CADDY_HOME/uploads", "$CADDY_HOME/html" ]
 
 # --------------------
 # Locale
