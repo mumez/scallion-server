@@ -30,33 +30,56 @@
 	respond @options 204
 }
 
+(to_dav_route_common) {
+	root uploads
+	webdav {
+		prefix /dav
+	}
+}
+
 (to_dav) {
+	@dav_update {
+		path /dav/*
+	}
+	route @dav_update {
+		import cors "*"
+		import verify_jwt
+		import to_dav_route_common
+	}
 	@dav {
+		method HEAD OPTIONS GET PROPFIND
 		path /dav/*
 	}
 	route @dav {
-		root uploads
 		import cors "*"
-		import verify_jwt
-		webdav {
-			prefix /dav
-		}
+		import to_dav_route_common
+	}
+}
+
+(to_api_route_common) {
+	uri strip_prefix /api
+	reverse_proxy {
+		to 192.168.80.128:9088 192.168.80.128:9089
+		lb_policy ip_hash
 	}
 }
 
 (to_api) {
+	@api_update {
+		method POST PUT PATCH DELETE
+		path /api/*
+	}
+	route @api_update {
+		import cors "*"
+		import verify_jwt
+		import to_api_route_common
+	}
 	@api {
-		# header API true
 		path /api/*
 	}
 	route @api {
 		import cors "*"
-		import verify_jwt
-		uri strip_prefix /api
-		reverse_proxy {
-			to 192.168.80.128:9088 192.168.80.128:9089
-			lb_policy ip_hash
-		}
+		import to_api_route_common
 	}
 }
 
