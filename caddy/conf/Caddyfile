@@ -39,6 +39,7 @@
 
 (to_dav) {
 	@dav_update {
+		method POST PUT PATCH DELETE COPY MKCOL MOVE PROPPATCH
 		path /dav/*
 	}
 	route @dav_update {
@@ -47,7 +48,6 @@
 		import to_dav_route_common
 	}
 	@dav {
-		method HEAD OPTIONS GET PROPFIND
 		path /dav/*
 	}
 	route @dav {
