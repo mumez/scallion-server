@@ -6,6 +6,11 @@ services:
       - "2016:2016"
       - "80:80"
       - "443:443"
+    environment:
+      - JWK_URL=https://www.googleapis.com/robot/v1/metadata/jwk/securetoken@system.gserviceaccount.com
+      - JWT_ISS=https://securetoken.google.com/scallion-fefc3
+      - JWT_AUD=scallion-fefc3
+      - WIKI_SERVER=192.168.80.128
     volumes:
       - ./caddy/conf/Caddyfile:/data/caddy/conf/Caddyfile
       - ./caddy/uploads:/data/caddy/uploads

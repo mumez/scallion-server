@@ -1,18 +1,13 @@
 {
 	order webdav before file_server
-	vars {
-		jwtIss "https://securetoken.google.com/scallion-fefc3"
-		jwtAud "scallion-fefc3"
-		wikiServers 192.168.80.128:9088 192.168.80.128:9089
-	}
 }
 
 (verify_jwt) {
 	jwtauth {
 		sign_alg RS256
-		jwk_url https://www.googleapis.com/robot/v1/metadata/jwk/securetoken@system.gserviceaccount.com
-		issuer_whitelist {vars.jwtIss}
-		audience_whitelist {vars.jwtAud}
+		jwk_url {JWK_URL}
+		issuer_whitelist {JWT_ISS}
+		audience_whitelist {JWT_ISS}
 	}
 }
 
@@ -56,7 +51,7 @@
 (to_api_route_common) {
 	uri strip_prefix /api
 	reverse_proxy {
-		to {vars.wikiServers}
+		to {env.WIKI_SERVER}:9088 {env.WIKI_SERVER}:9089 
 		lb_policy ip_hash
 	}
 }
