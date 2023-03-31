@@ -2,7 +2,7 @@
 	order webdav before file_server
 }
 
-(verify_jwt) {
+(verify_jwt_resty) {
 	reverse_proxy resty:8080 {
 		method GET
 		rewrite /verify
@@ -16,6 +16,15 @@
 		handle_response {
 			copy_response
 		}
+	}
+}
+
+(verify_jwt) {
+	jwtauth {
+		sign_alg RS256
+		jwk_url https://www.googleapis.com/robot/v1/metadata/jwk/securetoken@system.gserviceaccount.com
+		issuer_whitelist https://securetoken.google.com/scallion-fefc3
+		audience_whitelist scallion-fefc3
 	}
 }
 

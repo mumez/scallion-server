@@ -2,7 +2,7 @@ FROM caddy:2.6-builder-alpine AS builder
 
 RUN xcaddy build \
     --with github.com/mholt/caddy-webdav \
-    --with github.com/ggicci/caddy-jwt@v0.7.1
+    --with github.com/ggicci/caddy-jwt@v0.8.1
 
 FROM caddy:2.6
 
