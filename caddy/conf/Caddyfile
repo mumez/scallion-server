@@ -2,23 +2,6 @@
 	order webdav before file_server
 }
 
-(verify_jwt_resty) {
-	reverse_proxy resty:8080 {
-		method GET
-		rewrite /verify
-		header_up X-Forwarded-Method {method}
-		header_up X-Forwarded-Uri {uri}
-		header_up Authorization {http.request.header.Authorization}
-		@good status 2xx
-		handle_response @good {
-			request_header -Referer
-		}
-		handle_response {
-			copy_response
-		}
-	}
-}
-
 (verify_jwt) {
 	jwtauth {
 		sign_alg RS256
@@ -95,5 +78,4 @@
 :2016 {
 	import to_dav
 	import to_api
-	reverse_proxy localhost:8080
 }

@@ -9,8 +9,3 @@ services:
     volumes:
       - ./caddy/conf/Caddyfile:/data/caddy/conf/Caddyfile
       - ./caddy/uploads:/data/caddy/uploads
-
-  resty:
-    build: resty
-    ports:
-      - "7070:8080"
