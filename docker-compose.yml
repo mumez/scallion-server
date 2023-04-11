@@ -11,6 +11,7 @@ services:
       - JWT_ISS=https://securetoken.google.com/scallion-fefc3
       - JWT_AUD=scallion-fefc3
       - WIKI_SERVER=192.168.80.128
+      - SITE_ENTRYPOINT=:2016
     volumes:
       - ./caddy/conf/Caddyfile:/data/caddy/conf/Caddyfile
       - ./caddy/uploads:/data/caddy/uploads

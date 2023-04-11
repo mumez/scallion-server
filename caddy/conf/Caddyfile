@@ -5,9 +5,9 @@
 (verify_jwt) {
 	jwtauth {
 		sign_alg RS256
-		jwk_url {JWK_URL}
-		issuer_whitelist {JWT_ISS}
-		audience_whitelist {JWT_ISS}
+		jwk_url {$JWK_URL}
+		issuer_whitelist {$JWT_ISS}
+		audience_whitelist {$JWT_ISS}
 	}
 }
 
@@ -51,7 +51,7 @@
 (to_api_route_common) {
 	uri strip_prefix /api
 	reverse_proxy {
-		to {env.WIKI_SERVER}:9088 {env.WIKI_SERVER}:9089 
+		to {$WIKI_SERVER}:9086 {$WIKI_SERVER}:9087 {$WIKI_SERVER}:9088 {$WIKI_SERVER}:9089
 		lb_policy ip_hash
 	}
 }
@@ -75,7 +75,7 @@
 	}
 }
 
-:2016 {
+{$SITE_ENTRYPOINT} {
 	import to_dav
 	import to_api
 }
