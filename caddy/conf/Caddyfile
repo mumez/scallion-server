@@ -7,7 +7,7 @@
 		sign_alg RS256
 		jwk_url {$JWK_URL}
 		issuer_whitelist {$JWT_ISS}
-		audience_whitelist {$JWT_ISS}
+		audience_whitelist {$JWT_AUD}
 	}
 }
 
